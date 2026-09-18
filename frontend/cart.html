@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique — Your Shopping Cart</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Boutique</a>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav">
+        <a href="shop.html">Boutique</a>
+        <a href="shop.html#categories">Categories</a>
+        <a href="shop.html?sort=newest">New Arrivals</a>
+        <a href="shop.html?promo=true">Deals</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="searchToggle" aria-label="Rechercher">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <a href="cart.html" class="icon-btn cart-btn active" aria-label="Voir le panier">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <div class="user-menu">
+          <button class="icon-btn" id="userMenuToggle" aria-label="Compte utilisateur" aria-haspopup="true" aria-expanded="false">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </button>
+          <div class="user-menu-dropdown" id="userMenuDropdown"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="cart-page">
+    <h1>Your Shopping Cart</h1>
+
+    <div class="cart-layout">
+      <section class="cart-items" id="cartItems" aria-live="polite">
+        <!-- Lignes générées dynamiquement par cart.js -->
+      </section>
+
+      <p class="empty-cart" id="emptyCart" hidden>
+        Votre panier est vide. <a href="shop.html">Continuer vos achats</a>
+      </p>
+
+      <aside class="order-summary">
+        <h2>ORDER SUMMARY</h2>
+        <div class="summary-line">
+          <span>Subtotal</span>
+          <span id="summarySubtotal">0.00 €</span>
+        </div>
+        <div class="summary-line">
+          <span>Shipping</span>
+          <span id="summaryShipping">0.00 €</span>
+        </div>
+        <div class="summary-line summary-total">
+          <span>Total</span>
+          <span id="summaryTotal">0.00 €</span>
+        </div>
+        <a href="checkout.html" class="btn btn-primary btn-block" id="checkoutBtn">PROCEED TO CHECKOUT</a>
+        <a href="shop.html" class="btn btn-outline btn-block">CONTINUE SHOPPING</a>
+      </aside>
+    </div>
+  </main>
+
+  <template id="cartItemTemplate">
+    <div class="cart-item">
+      <img class="cart-item-image" src="" alt="">
+      <div class="cart-item-info">
+        <p class="cart-item-name"></p>
+        <div class="quantity-selector quantity-selector-sm">
+          <button type="button" class="decrease-qty" aria-label="Diminuer la quantité">-</button>
+          <span class="cart-item-qty">1</span>
+          <button type="button" class="increase-qty" aria-label="Augmenter la quantité">+</button>
+        </div>
+        <p class="cart-item-price"></p>
+      </div>
+      <button class="remove-item-btn" type="button">Remove</button>
+    </div>
+  </template>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="shipping-policy.html">Shipping</a>
+        <a href="return-policy.html">Returns</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+      </div>
+      <div class="footer-social" aria-label="Réseaux sociaux">
+        <a href="#" aria-label="Facebook">●</a>
+        <a href="#" aria-label="Instagram">●</a>
+        <a href="#" aria-label="Twitter">●</a>
+        <a href="#" aria-label="YouTube">●</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/products.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

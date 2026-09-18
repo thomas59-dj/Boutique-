@@ -1,0 +1,146 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model User {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cart      Cart?
+  orders    Order[]
+  addresses Address[]
+
+  @@map("users")
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  slug      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+
+  @@map("categories")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String
+  price       Float
+  oldPrice    Float?
+  stock       Int      @default(0)
+  image       String
+  images      String[] @default([])
+  brand       String?
+  gtin        String? // code-barres (EAN/UPC) — requis par Google Merchant si le produit en a un
+  mpn         String? // référence fabricant — alternative au gtin pour Google Merchant
+  isNew       Boolean  @default(false)
+  popularity  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  @@map("products")
+}
+
+model Cart {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+  updatedAt DateTime   @updatedAt
+
+  @@map("cart")
+}
+
+model CartItem {
+  id        String  @id @default(uuid())
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1)
+
+  @@unique([cartId, productId])
+  @@map("cart_items")
+}
+
+model Address {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName  String
+  address   String
+  city      String
+  zipCode   String
+  country   String
+  phone     String
+  createdAt DateTime @default(now())
+
+  orders Order[]
+
+  @@map("addresses")
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  addressId     String
+  address       Address     @relation(fields: [addressId], references: [id])
+  items         OrderItem[]
+  subtotal      Float
+  shipping      Float
+  total         Float
+  paymentMethod String
+  status        OrderStatus @default(PENDING)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  name      String
+  price     Float
+  quantity  Int
+
+  @@map("order_items")
+}

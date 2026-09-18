@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Remplacer par l'URL réelle du backend en production (voir SITE_URL/.env backend)
+Sitemap: http://localhost:4000/api/sitemap.xml

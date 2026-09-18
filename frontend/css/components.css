@@ -1,0 +1,168 @@
+/* =========================================================
+   BOUTIQUE — components.css
+   Composants réutilisables : boutons, cartes produit,
+   formulaires, badges, quantité, dropdown.
+   ========================================================= */
+
+/* --- Boutons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+}
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) { background: var(--color-primary-dark); }
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+.btn-outline:hover:not(:disabled) { border-color: var(--color-primary); color: var(--color-primary-dark); }
+
+.btn-danger {
+  background: var(--color-danger);
+  color: #fff;
+}
+.btn-danger:hover:not(:disabled) { background: var(--color-danger-dark); }
+
+.btn-social {
+  background: #fff;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+.btn-social:hover:not(:disabled) { border-color: var(--color-primary); }
+
+.btn-lg { padding: 0.85rem 1.75rem; font-size: 1rem; }
+.btn-block { width: 100%; }
+
+/* --- Cartes produit --- */
+.product-card {
+  background: var(--color-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.product-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.product-card-image {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--color-bg);
+}
+.product-card-image img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.favorite-btn {
+  position: absolute;
+  top: 0.6rem; right: 0.6rem;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  width: 32px; height: 32px;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-text);
+  transition: color var(--transition), transform var(--transition);
+}
+.favorite-btn:hover { color: var(--color-danger); transform: scale(1.08); }
+.favorite-btn.active { color: var(--color-danger); }
+
+.product-card-body { padding: 0.9rem 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.25rem; flex: 1; }
+.product-card-category { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-text-muted); }
+.product-card-name { font-weight: 600; font-size: 0.95rem; color: var(--color-text); margin-bottom: 0.25rem; }
+.product-card-price { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.6rem; }
+.product-card-price .price { font-weight: 700; color: var(--color-primary-dark); }
+.product-card-price .old-price { font-size: 0.85rem; text-decoration: line-through; color: var(--color-text-muted); }
+.add-to-cart-btn { margin-top: auto; width: 100%; font-size: 0.85rem; padding: 0.55rem 1rem; }
+
+/* --- Formulaires --- */
+.form-field { margin-bottom: 1.1rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-field label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--color-text);
+}
+.form-field input,
+.form-field select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  transition: border-color var(--transition);
+}
+.form-field input:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+.form-field input:disabled { background: var(--color-bg); color: var(--color-text-muted); }
+.password-field { position: relative; }
+.toggle-password {
+  position: absolute;
+  right: 0.6rem;
+  top: 2.15rem;
+  background: none;
+  border: none;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+.field-error { display: block; font-size: 0.78rem; color: var(--color-danger); margin-top: 0.3rem; min-height: 1em; }
+.form-message { font-size: 0.88rem; min-height: 1.2em; }
+.form-message.error { color: var(--color-danger); }
+.form-message.success { color: var(--color-primary-dark); }
+
+/* --- Sélecteur de quantité --- */
+.quantity-selector {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  width: fit-content;
+}
+.quantity-selector button {
+  background: var(--color-bg);
+  border: none;
+  width: 34px; height: 34px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.quantity-selector input,
+.quantity-selector span.cart-item-qty {
+  width: 44px;
+  text-align: center;
+  border: none;
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  padding: 0.4rem 0;
+  display: inline-block;
+}
+.quantity-selector-sm button { width: 28px; height: 28px; }
+.quantity-selector-sm input,
+.quantity-selector-sm span.cart-item-qty { width: 32px; font-size: 0.85rem; }
+
+/* --- Divers --- */
+.favorite-btn-lg { display: inline-flex; align-items: center; gap: 0.4rem; }

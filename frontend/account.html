@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique — Mon compte</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Boutique</a>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav">
+        <a href="shop.html">Boutique</a>
+        <a href="shop.html#categories">Categories</a>
+        <a href="shop.html?sort=newest">New Arrivals</a>
+        <a href="shop.html?promo=true">Deals</a>
+      </nav>
+      <div class="header-actions">
+        <a href="cart.html" class="icon-btn cart-btn" aria-label="Voir le panier">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <div class="user-menu">
+          <button class="icon-btn active" id="userMenuToggle" aria-label="Compte utilisateur" aria-haspopup="true" aria-expanded="false">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </button>
+          <div class="user-menu-dropdown" id="userMenuDropdown"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="account-page">
+    <h1>Mon compte</h1>
+
+    <div class="account-layout">
+      <nav class="account-tabs" aria-label="Sections du compte">
+        <button class="tab-btn active" data-tab="profile">Mon compte</button>
+        <button class="tab-btn" data-tab="orders">Mes commandes</button>
+        <button class="tab-btn" data-tab="settings">Paramètres</button>
+      </nav>
+
+      <div class="account-content">
+
+        <section class="tab-panel active" id="tab-profile">
+          <h2>Informations personnelles</h2>
+          <form id="profileForm" novalidate>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="accFirstName">First Name</label>
+                <input type="text" id="accFirstName" name="firstName">
+              </div>
+              <div class="form-field">
+                <label for="accLastName">Last Name</label>
+                <input type="text" id="accLastName" name="lastName">
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="accEmail">Email</label>
+              <input type="email" id="accEmail" name="email" disabled>
+            </div>
+            <p class="form-message" id="profileMessage" role="alert"></p>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+          </form>
+
+          <h2>Adresses de livraison</h2>
+          <div id="addressList" class="address-list"></div>
+        </section>
+
+        <section class="tab-panel" id="tab-orders" hidden>
+          <h2>Historique des commandes</h2>
+          <div id="ordersList" class="orders-list"></div>
+          <p class="empty-state" id="noOrders" hidden>Vous n'avez pas encore de commande.</p>
+        </section>
+
+        <section class="tab-panel" id="tab-settings" hidden>
+          <h2>Paramètres</h2>
+          <form id="passwordForm" novalidate>
+            <h3>Changer le mot de passe</h3>
+            <div class="form-field">
+              <label for="currentPassword">Mot de passe actuel</label>
+              <input type="password" id="currentPassword" name="currentPassword" autocomplete="current-password">
+            </div>
+            <div class="form-field">
+              <label for="newPassword">Nouveau mot de passe</label>
+              <input type="password" id="newPassword" name="newPassword" minlength="8" autocomplete="new-password">
+            </div>
+            <p class="form-message" id="settingsMessage" role="alert"></p>
+            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+          </form>
+
+          <h3>Préférences de notification</h3>
+          <label class="checkbox-line">
+            <input type="checkbox" id="emailNotifications" checked>
+            Recevoir les emails de promotion
+          </label>
+
+          <h3>Zone dangereuse</h3>
+          <button class="btn btn-danger" id="logoutBtn">Se déconnecter</button>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <template id="orderCardTemplate">
+    <article class="order-card">
+      <header>
+        <span class="order-id"></span>
+        <span class="order-date"></span>
+        <span class="order-status"></span>
+      </header>
+      <div class="order-items"></div>
+      <footer>
+        <span class="order-total"></span>
+      </footer>
+    </article>
+  </template>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="shipping-policy.html">Shipping</a>
+        <a href="return-policy.html">Returns</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
